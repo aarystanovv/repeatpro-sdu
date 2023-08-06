@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-4l@9f&@)mv$&8l5akprjh4jw$1mw5m@om)+&3exgpql*q*pp)p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'application',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
-    'Course'
+    'Course',
 ]
 
 
@@ -96,6 +97,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#DATABASES = {
+#    "default": {
+#        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+#        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+#        "USER": os.environ.get("SQL_USER", "user"),
+#        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+#        "HOST": os.environ.get("SQL_HOST", "localhost"),
+#        "PORT": os.environ.get("SQL_PORT", "5432"),
+#    }
+#}
 
 
 # Password validation
