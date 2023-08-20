@@ -10,6 +10,5 @@ from django.urls import path, include
 import application.views
 
 urlpatterns = [
-    path('user/', include('application.urls')),
-    path('course/', include('Course.urls'))
+    path('user/', include('application.urls'))
 ]

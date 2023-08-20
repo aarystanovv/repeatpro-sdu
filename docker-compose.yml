@@ -1,24 +1,30 @@
-version: '3.9'
+version: "3.8"
 services:
-   django:
-       build: .
-       container_name: django
-       volumes:
-         - .:/repeatpro-sdu/application
-       ports:
-           - 5001:8000
-       depends_on:
-         - pgdb
+  app:
+    build: .
+    volumes:
+      - .:/django
+    ports:
+      - 8000:8000
+    image: app:django
+    container_name: repeatpro
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - backend
 
-   pgdb:
-     image: postgres
-     environment:
-       - POSTGRES_DB=postgres
-       - POSTGRES_USER=postgres
-       - POSTGRES_PASSWORD=postgres
-     container_name: pgdb
-     volumes:
-       - postgredata:/var/lib/postgresql/data/
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - .:/django
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
 
-volumes:
-  postgredata: null
+  db:
+    image: postgres:14-alpine
+
+
+
